@@ -17,6 +17,8 @@ namespace vetappback.Models {
     	public DbSet<History> Histories { get; set; }
 
     	public DbSet<Agenda> Agendas { get; set; }
+        public DbSet<Manager> Managers{ get; set; }
+
 
 
     }

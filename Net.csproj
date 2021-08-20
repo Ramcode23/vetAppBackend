@@ -9,5 +9,6 @@
     <PackageReference Include="EntityFramework.Toolkit.Core" Version="2.0.19308.1-pre"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.0"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0"/>
   </ItemGroup>
 </Project>
