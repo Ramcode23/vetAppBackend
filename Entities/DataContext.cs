@@ -1,10 +1,11 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using vetappback.Entities;
 
 namespace vetappback.Models {
-    public class DataContext : DbContext {
+    public class DataContext : IdentityDbContext<User> {
         public DataContext() { }
-        public DataContext(DbContextOptions<DataContext> options) : base (options) { }
+        public DataContext(DbContextOptions options) : base (options) { }
 
 
         public DbSet<Owner> Owners { get; set; }
@@ -18,6 +19,7 @@ namespace vetappback.Models {
 
     	public DbSet<Agenda> Agendas { get; set; }
         public DbSet<Manager> Managers{ get; set; }
+       
 
 
 

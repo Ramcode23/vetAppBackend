@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using vetappback.Data;
 using vetappback.Models;
-
+using vetappback.Entities;
 namespace Net
 {
     public class Startup
@@ -32,11 +33,24 @@ namespace Net
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-               services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DataContext>(cfg =>
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            
+            services.AddIdentity<User, IdentityRole>()
+                    .AddEntityFrameworkStores<DataContext>()
+                    .AddRoles<IdentityRole>()
+                    .AddDefaultTokenProviders();
+
+
+              services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsManager", policy => policy.RequireClaim("role", "manager"));
+                options.AddPolicy("IsOwner", policy => policy.RequireClaim("role", "owner"));
+            });       
+
             services.AddTransient<SeedDb>();
 
             services.AddControllers();
@@ -87,11 +101,7 @@ namespace Net
                     };
                 });
 
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("IsManager", policy => policy.RequireClaim("role", "manager"));
-                options.AddPolicy("IsOwner", policy => policy.RequireClaim("role", "owner"));
-            });
+           
         }
 
 
