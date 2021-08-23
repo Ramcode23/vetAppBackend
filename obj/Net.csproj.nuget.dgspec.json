@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj": {}
+    "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj": {}
   },
   "projects": {
-    "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj": {
+    "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
+        "projectUniqueName": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
         "projectName": "Net",
-        "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
+        "projectPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
         "packagesPath": "C:\\Users\\ramc2\\.nuget\\packages\\",
-        "outputPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\obj\\",
+        "outputPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -47,16 +47,17 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
             "EntityFramework.Toolkit.Core": {
               "target": "Package",
               "version": "[2.0.19308.1-pre, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[5.0.0, )",
-              "noWarn": [
-                "NU1605"
-              ]
+              "version": "[5.0.0, )"
             },
             "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
               "target": "Package",

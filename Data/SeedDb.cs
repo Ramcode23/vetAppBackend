@@ -5,9 +5,10 @@ using vetappback.Entities;
 using vetappback.Models;
 
 namespace vetappback.Data
-{public class SeedDb
+{
+	public class SeedDb
 	{
-    	private readonly DataContext _context;
+/*     	private readonly DataContext _context;
 
     	public SeedDb(DataContext context)
     	{
@@ -68,8 +69,8 @@ namespace vetappback.Data
         	}
     	}
 
-    	private void AddOwner(string document, string firstName, string lastName, string fixedPhone, string cellPhone, string address)
-    	{
+    /* 	private void AddOwner(string document, string firstName, string lastName, string fixedPhone, string cellPhone, string address) */
+    /* 	{
         	_context.Owners.Add(new Owner
         	{
             	Address = address,
@@ -78,10 +79,10 @@ namespace vetappback.Data
             	FirstName = firstName,
             	FixedPhone = fixedPhone,
             	LastName = lastName
-        	});
-    	}
+        	}); */
+    //	} 
 
-    	private void AddPet(string name, Owner owner, PetType petType, string race)
+/*     	private void AddPet(string name, Owner owner, PetType petType, string race)
     	{
         	_context.Pets.Add(new Pet
         	{
@@ -125,7 +126,7 @@ namespace vetappback.Data
 
             	await _context.SaveChangesAsync();
         	}
-    	}
+    	}*/
 	}
-
+ 
 }
