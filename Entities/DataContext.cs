@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using vetappback.Entities;
 
-namespace vetappback.Models {
+namespace vetappback.Entities {
     public class DataContext : IdentityDbContext<User> {
-        public DataContext() { }
+    
         public DataContext(DbContextOptions options) : base (options) { }
 
 

@@ -17,8 +17,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using vetappback.Data;
-using vetappback.Models;
 using vetappback.Entities;
+using vetappback.Helpers;
+
 namespace Net
 {
     public class Startup
@@ -50,6 +51,7 @@ namespace Net
                 options.AddPolicy("IsManager", policy => policy.RequireClaim("role", "manager"));
                 options.AddPolicy("IsOwner", policy => policy.RequireClaim("role", "owner"));
             });       
+services.AddScoped<IUserHelper,UserHelper>();
 
             services.AddTransient<SeedDb>();
 
@@ -77,27 +79,17 @@ namespace Net
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.IncludeErrorDetails = true; // Default: true
+                    
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
-                        // Let "sub" assign to User.Identity.Name
-                        NameClaimType = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
-                        // Let "roles" assign to Roles for [Authorized] attributes
-                        RoleClaimType = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
-
-                        // Validate the Issuer
-                        ValidateIssuer = true,
-                        ValidIssuer = Configuration.GetValue<string>("JwtSettings:Issuer"),
-
+                        
+                        ValidateIssuer = false,
                         ValidateAudience = false,
-                        //ValidAudience = "JwtAuthDemo", // TODO
-
                         ValidateLifetime = true,
-
-                        ValidateIssuerSigningKey = false,
-
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration.GetValue<string>("JwtSettings:SignKey")))
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["key"])),
+                        ClockSkew=TimeSpan.Zero
                     };
                 });
 
