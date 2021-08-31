@@ -87,6 +87,7 @@ namespace vetappback.Controllers
 
 
         [HttpPost("createmanager")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<ActionResult<AuthenticationResponse>> createAdmin([FromBody] RegisterUser registeruser)
         {
 
@@ -103,13 +104,14 @@ namespace vetappback.Controllers
                     LastName = registeruser.LastName,
                     Address = registeruser.Address,
                 };
+                
 
                 var credencials = new UserCredentials { Password = registeruser.Password, Email = registeruser.Email };
                 var rest = await userManager.CreateAsync(user, registeruser.Password);
-                await userManager.AddClaimAsync(user, new Claim("role", "manager"));
-                var owner = new Manager { User = user };
-                await dataContext.AddAsync(owner);
+                var manager = new Manager { User = user };
+                await dataContext.AddAsync(manager);
                 await dataContext.SaveChangesAsync();
+                await userManager.AddClaimAsync(user, new Claim("role", "manager"));
                 if (rest.Succeeded)
                 {
                     return await BuildToken(credencials);
@@ -124,7 +126,7 @@ namespace vetappback.Controllers
 
         }
         [HttpPost("createOwner")]
-          [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
+  
         public async Task<ActionResult<AuthenticationResponse>> PostOwner([FromBody] RegisterUser registeruser)
         {
             var isExits = await userManager.FindByEmailAsync(registeruser.Email);
@@ -143,10 +145,10 @@ namespace vetappback.Controllers
 
                 var credencials = new UserCredentials { Password = registeruser.Password, Email = registeruser.Email };
                 var rest = await userManager.CreateAsync(user, registeruser.Password);
-                await userManager.AddClaimAsync(user, new Claim("role", "owner"));
                 var owner = new Owner { User = user };
                 await dataContext.AddAsync(owner);
                 await dataContext.SaveChangesAsync();
+                await userManager.AddClaimAsync(user, new Claim("role", "owner"));
                 if (rest.Succeeded)
                 {
                     return await BuildToken(credencials);

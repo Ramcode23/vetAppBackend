@@ -55,7 +55,7 @@ namespace vetappback.Controllers
           [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Policy ="isAdmin")]
         public async Task<ActionResult<PetType>> PostPetType( [FromBody] PetType model)
         {
-            // TODO: Your code here
+          
             try
             {
                 
@@ -79,7 +79,7 @@ namespace vetappback.Controllers
                 return BadRequest();
             }
 
-            dataContext.Entry(User).State = EntityState.Modified;
+            dataContext.Entry(model).State = EntityState.Modified;
 
             try
             {
@@ -102,7 +102,7 @@ namespace vetappback.Controllers
 
     private bool PetTypeExists(int id)
         {
-            return dataContext.Pets.Any(e => e.Id == id);
+            return dataContext.PetTypes.Any(e => e.Id == id);
         }
      
     }

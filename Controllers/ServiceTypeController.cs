@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using vetappback.Entities;
 //using vetappback.Models;
 
@@ -12,53 +13,89 @@ namespace vetappback.Controllers
     [ApiController]
     public class ServiceTypeController : ControllerBase
     {
-        public ServiceTypeController()
+        private readonly DataContext dataContext;
+        public ServiceTypeController(DataContext dataContext)
         {
+            this.dataContext = dataContext;
         }
 
-        [HttpGet("")]
+        [HttpGet("GetServiceTypes")]
         public async Task<ActionResult<IEnumerable<ServiceType>>> GetServiceTypes()
         {
-            // TODO: Your code here
-            await Task.Yield();
+            var serviceTypes = await dataContext.ServiceTypes.ToListAsync();
+            if (serviceTypes.Count>0)
+            {
+                return serviceTypes;
+            }
 
             return new List<ServiceType> { };
         }
 
         [HttpGet("{id}")]
+        [HttpGet("GetServiceType")]
         public async Task<ActionResult<ServiceType>> GetServiceTypeById(int id)
         {
-            // TODO: Your code here
-            await Task.Yield();
+            var serviceType = await dataContext.ServiceTypes.FindAsync(id);
+            if (serviceType!=null)
+            {
+                return serviceType;
+            }
 
             return null;
         }
 
-        [HttpPost("")]
+        [HttpPost("CreateServiceType")]
         public async Task<ActionResult<ServiceType>> PostServiceType(ServiceType model)
         {
-            // TODO: Your code here
-            await Task.Yield();
+             try
+            {
+                
+            await dataContext.ServiceTypes.AddAsync(model);
 
-            return null;
+            return model ;
+            }
+            catch (System.Exception)
+            {
+                
+           return NoContent();
+            }
         }
 
         [HttpPut("{id}")]
+         [HttpPut("PutServiceType")]
         public async Task<IActionResult> PutServiceType(int id, ServiceType model)
         {
-            // TODO: Your code here
-            await Task.Yield();
+            if (id != model.Id)
+            {
+                return BadRequest();
+            }
+
+            dataContext.Entry(model).State = EntityState.Modified;
+
+            try
+            {
+                await dataContext.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!PetTypeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceType>> DeleteServiceTypeById(int id)
+     
+         private bool PetTypeExists(int id)
         {
-            // TODO: Your code here
-            await Task.Yield();
-
-            return null;
+            return dataContext.ServiceTypes.Any(e => e.Id == id);
         }
+     
     }
-}
+    }
