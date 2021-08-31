@@ -17,7 +17,7 @@ This a application
   
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/Ramcode23/vetAppBackend/blob/main/diag/Vetapp.png)
 
   
 
@@ -27,7 +27,7 @@ I'm a full stack developer...
   
 ## Documentation
 
-[Documentation](https://documenter.getpostman.com/view/6594963/TzzEoa3z)
+[Documentation]()
 
   
 ## Roadmap
