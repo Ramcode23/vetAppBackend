@@ -16,9 +16,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
 using vetappback.Data;
 using vetappback.Entities;
 using vetappback.Helpers;
+using vetappback.Utilities;
+
 
 namespace Net
 {
@@ -26,6 +29,7 @@ namespace Net
     {
         public Startup(IConfiguration configuration)
         {
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             Configuration = configuration;
         }
 
@@ -39,19 +43,11 @@ namespace Net
             {
                 cfg.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
-            
-            services.AddIdentity<User, IdentityRole>()
-                    .AddEntityFrameworkStores<DataContext>()
-                    .AddRoles<IdentityRole>()
-                    .AddDefaultTokenProviders();
 
+         
 
-              services.AddAuthorization(options =>
-            {
-                options.AddPolicy("IsManager", policy => policy.RequireClaim("role", "manager"));
-                options.AddPolicy("IsOwner", policy => policy.RequireClaim("role", "owner"));
-            });       
-services.AddScoped<IUserHelper,UserHelper>();
+            services.AddScoped<IUserHelper, UserHelper>();
+            services.AddTransient<IAzureStorage, AzureStorage>();
 
             services.AddTransient<SeedDb>();
 
@@ -60,7 +56,7 @@ services.AddScoped<IUserHelper,UserHelper>();
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Net", Version = "v1" });
             });
-            var frontendURL = Configuration.GetValue<string>("frontend_url");
+            var frontendURL = Configuration.GetValue<string>("frontendURL");
 
             services.AddCors(options =>
             {
@@ -73,27 +69,30 @@ services.AddScoped<IUserHelper,UserHelper>();
                 });
             });
 
+   services.AddIdentity<User, IdentityRole>()
+                    .AddEntityFrameworkStores<DataContext>()
+                    .AddRoles<IdentityRole>()
+                    .AddDefaultTokenProviders();
+
 
             // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
-            services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    
-
-                    options.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["key"])),
-                        ClockSkew=TimeSpan.Zero
-                    };
+          services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(opciones => 
+                opciones.TokenValidationParameters = new TokenValidationParameters { 
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(Configuration["key"])),
+                    ClockSkew = TimeSpan.Zero
                 });
 
-           
+  services.AddAuthorization(opciones =>
+            {
+                opciones.AddPolicy("IsAdmin", policy => policy.RequireClaim("role", "admin"));
+            });
+
         }
 
 
@@ -112,8 +111,10 @@ services.AddScoped<IUserHelper,UserHelper>();
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+ app.UseCors();
             app.UseAuthorization();
+            
+ app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

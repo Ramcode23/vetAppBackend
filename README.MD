@@ -21,23 +21,12 @@ This a application
 
   
 
-## 🚀 About Me
-I'm a full stack developer...
-
-  
+ 
 ## Documentation
 
 [Documentation]()
 
-  
-## Roadmap
 
-- Additional browser support
-
-- Add more integrations
-
-  
-## Functionality
 
 #### Functionality matrix
 
@@ -61,22 +50,3 @@ I'm a full stack developer...
 
 
 
-|Functionality | Admin | Owner                    |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
-#### Get item
-
-```http
-  GET /api/items/${id}
-```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
-#### add(num1, num2)
-
-Takes two numbers and returns the sum.
-
-  

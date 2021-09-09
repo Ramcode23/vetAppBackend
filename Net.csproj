@@ -12,5 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0"/>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1"/>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.0"/>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1"/>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.9.0"/>
   </ItemGroup>
 </Project>

@@ -51,6 +51,10 @@
               "target": "Package",
               "version": "[8.1.1, )"
             },
+            "Azure.Storage.Blobs": {
+              "target": "Package",
+              "version": "[12.9.0, )"
+            },
             "EntityFramework.Toolkit.Core": {
               "target": "Package",
               "version": "[2.0.19308.1-pre, )"
@@ -81,6 +85,10 @@
             "Microsoft.EntityFrameworkCore.Tools": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

@@ -87,7 +87,7 @@ namespace vetappback.Controllers
 
 
         [HttpPost("createmanager")]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
+     
         public async Task<ActionResult<AuthenticationResponse>> createAdmin([FromBody] RegisterUser registeruser)
         {
 
@@ -111,7 +111,7 @@ namespace vetappback.Controllers
                 var manager = new Manager { User = user };
                 await dataContext.AddAsync(manager);
                 await dataContext.SaveChangesAsync();
-                await userManager.AddClaimAsync(user, new Claim("role", "manager"));
+                await userManager.AddClaimAsync(user, new Claim("role", "admin"));
                 if (rest.Succeeded)
                 {
                     return await BuildToken(credencials);
@@ -148,7 +148,6 @@ namespace vetappback.Controllers
                 var owner = new Owner { User = user };
                 await dataContext.AddAsync(owner);
                 await dataContext.SaveChangesAsync();
-                await userManager.AddClaimAsync(user, new Claim("role", "owner"));
                 if (rest.Succeeded)
                 {
                     return await BuildToken(credencials);
