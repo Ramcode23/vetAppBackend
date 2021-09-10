@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vetappback.Entities;
@@ -45,6 +47,7 @@ namespace vetappback.Controllers
         }
 
         [HttpPost("CreateServiceType")]
+         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<ActionResult<ServiceType>> PostServiceType(ServiceType model)
         {
              try
@@ -62,7 +65,8 @@ namespace vetappback.Controllers
         }
 
         [HttpPut("{id}")]
-         [HttpPut("PutServiceType")]
+        [HttpPut("PutServiceType")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<IActionResult> PutServiceType(int id, ServiceType model)
         {
             if (id != model.Id)
@@ -78,7 +82,7 @@ namespace vetappback.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PetTypeExists(id))
+                if (!ServiceExists(id))
                 {
                     return NotFound();
                 }
@@ -92,7 +96,7 @@ namespace vetappback.Controllers
         }
 
      
-         private bool PetTypeExists(int id)
+         private bool ServiceExists(int id)
         {
             return dataContext.ServiceTypes.Any(e => e.Id == id);
         }
