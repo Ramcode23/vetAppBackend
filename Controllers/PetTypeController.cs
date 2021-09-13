@@ -23,11 +23,11 @@ namespace vetappback.Controllers
             this.dataContext = dataContext;
         }
 
-        [HttpGet("PetTypes")]
+        [HttpGet("getPetTypes")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<PetType>>> GetPetTypes()
         {
-            
+
             var petTypes = await dataContext.PetTypes.ToListAsync();
             if (petTypes.Count > 0)
             {
@@ -38,12 +38,12 @@ namespace vetappback.Controllers
         }
 
         [HttpGet("{id}")]
-        [HttpGet("PetType")]
-         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        [HttpGet("getPetType")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<PetType>> GetPetTypeById(int id)
         {
-          var petType = await dataContext.PetTypes.FindAsync(id);
-            if (petType!=null)
+            var petType = await dataContext.PetTypes.FindAsync(id);
+            if (petType != null)
             {
                 return petType;
             }
@@ -52,26 +52,27 @@ namespace vetappback.Controllers
         }
 
         [HttpPost("CreatePetType")]
-          [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme,Policy ="isAdmin")]
-        public async Task<ActionResult<PetType>> PostPetType( [FromBody] PetType model)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "isAdmin")]
+        public async Task<ActionResult<PetType>> PostPetType([FromBody] PetType model)
         {
-          
+
             try
             {
-                
-            await dataContext.PetTypes.AddAsync(model);
 
-            return model ;
+                await dataContext.PetTypes.AddAsync(model);
+                await dataContext.SaveChangesAsync();
+                return model;
             }
             catch (System.Exception)
             {
-                
-           return NoContent();
+
+                return NoContent();
             }
         }
 
         [HttpPut("{id}")]
         [HttpPut("EditPetType")]
+         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "isAdmin")]
         public async Task<IActionResult> PutPetType(int id, PetType model)
         {
             if (id != model.Id)
@@ -100,11 +101,11 @@ namespace vetappback.Controllers
             return NoContent();
         }
 
-    private bool PetTypeExists(int id)
+        private bool PetTypeExists(int id)
         {
             return dataContext.PetTypes.Any(e => e.Id == id);
         }
-     
+
     }
 
 }
