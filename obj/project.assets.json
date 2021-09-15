@@ -6215,11 +6215,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
+      "projectUniqueName": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
       "projectName": "Net",
-      "projectPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
+      "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\Net.csproj",
       "packagesPath": "C:\\Users\\ramc2\\.nuget\\packages\\",
-      "outputPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\obj\\",
+      "outputPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
