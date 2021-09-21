@@ -22,7 +22,6 @@ using vetappback.Entities;
 using vetappback.Helpers;
 using vetappback.Utilities;
 
-
 namespace Net
 {
     public class Startup
@@ -47,7 +46,7 @@ namespace Net
 
 
             services.AddScoped<IUserHelper, UserHelper>();
-            services.AddTransient<IAzureStorage, AzureStorage>();
+            services.AddTransient<IFileStorage, AzureStorage>();
 
             services.AddTransient<SeedDb>();
 
@@ -62,66 +61,66 @@ namespace Net
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                builder.WithOrigins(frontendURL)
-                    .SetIsOriginAllowedToAllowWildcardSubdomains()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .WithExposedHeaders(new string[]{ "totalRecord"});
-            });
-        });
-
-   services.AddIdentity<User, IdentityRole>()
-                    .AddEntityFrameworkStores<DataContext>()
-                    .AddRoles<IdentityRole>()
-                    .AddDefaultTokenProviders();
-
-
-        // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(opciones => 
-                opciones.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(
-                        Encoding.UTF8.GetBytes(Configuration["key"])),
-                    ClockSkew = TimeSpan.Zero
+                    builder.WithOrigins(frontendURL)
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithExposedHeaders(new string[] { "totalRecord" });
                 });
-
-        services.AddAuthorization(opciones =>
-            {
-                opciones.AddPolicy("IsAdmin", policy => policy.RequireClaim("role", "admin"));
             });
+
+            services.AddIdentity<User, IdentityRole>()
+                             .AddEntityFrameworkStores<DataContext>()
+                             .AddRoles<IdentityRole>()
+                             .AddDefaultTokenProviders();
+
+
+            // dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(opciones =>
+                    opciones.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(Configuration["key"])),
+                        ClockSkew = TimeSpan.Zero
+                    });
+
+            services.AddAuthorization(opciones =>
+                {
+                    opciones.AddPolicy("IsAdmin", policy => policy.RequireClaim("role", "admin"));
+                });
 
         }
 
 
 
 
-// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-{
-    if (env.IsDevelopment())
-    {
-        app.UseDeveloperExceptionPage();
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Net v1"));
-    }
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Net v1"));
+            }
 
-    app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
-    app.UseRouting();
-    app.UseCors();
-    app.UseAuthorization();
+            app.UseRouting();
+            app.UseCors();
+            app.UseAuthorization();
 
-    app.UseAuthorization();
-
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-    });
-}
+            app.UseAuthorization();
+         
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
     }
 }
