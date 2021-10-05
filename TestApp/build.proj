@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.Build.Traversal/3.0.0">
+
+<ItemGroup>
+    <ProjectReference Include="**\*.*proj" />
+</ItemGroup>
+
+<ItemGroup>
+  <PackageReference Include="moq" Version="4.16.1" />
+</ItemGroup>
+</Project>
