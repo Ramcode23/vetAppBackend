@@ -1,2 +1,6 @@
 {
+<<<<<<< HEAD
+=======
+    "dotnet-test-explorer.testProjectPath": "**/*Test.@(csproj|vbproj|fsproj)"
+>>>>>>> origin/main
 }

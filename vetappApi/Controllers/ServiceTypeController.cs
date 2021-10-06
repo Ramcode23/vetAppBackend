@@ -2,16 +2,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using AutoMapper;
+=======
+>>>>>>> origin/main
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using veapp.Api.Repositories;
+<<<<<<< HEAD
 using vetappApi.DTOs;
 using vetappback.DTOs;
 using vetappback.Entities;
 using vetappback.Utilities;
+=======
+using vetappback.Entities;
+>>>>>>> origin/main
 //using vetappback.Models;
 
 namespace vetappback.Controllers
@@ -20,6 +27,7 @@ namespace vetappback.Controllers
     [ApiController]
     public class ServiceTypeController : ControllerBase
     {
+<<<<<<< HEAD
       private readonly IServicesTypesRepository  repository;
         private readonly IMapper mapper;
 
@@ -42,6 +50,22 @@ namespace vetappback.Controllers
                  await HttpContext.InsertPagintationToHeader(queryable);
                  var serviceTypes = await queryable.OrderBy(x => x.Name).Paginate(pagination).ToListAsync();
             
+=======
+        private readonly IServicesTypesRepository servicesTypesRepository;
+
+        public ServiceTypeController(IServicesTypesRepository servicesTypesRepository)
+        {
+            this.servicesTypesRepository = servicesTypesRepository;
+
+        }
+
+        [HttpGet("GetServiceTypes")]
+        public async Task<ActionResult<IEnumerable<ServiceType>>> GetServiceTypes()
+        {
+            try
+            {
+                var serviceTypes = await servicesTypesRepository.GetServiceTypesAsync();
+>>>>>>> origin/main
                 if (serviceTypes.Count > 0)
                 {
                     return Ok(serviceTypes);
@@ -64,7 +88,11 @@ namespace vetappback.Controllers
         {
             try
             {
+<<<<<<< HEAD
                 var serviceType = await repository.GetServiceTypeByIdAsync(id);
+=======
+                var serviceType = await servicesTypesRepository.GetServiceTypeByIdAsync(id);
+>>>>>>> origin/main
                 if (serviceType != null)
                 {
                     return Ok(serviceType);
@@ -82,6 +110,7 @@ namespace vetappback.Controllers
 
         [HttpPost("CreateServiceType")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
+<<<<<<< HEAD
         public async Task<IActionResult> PostServiceType([FromBody] ServiceTypeCreateDTO ServiceTypeCreateDTO)
         {
 
@@ -108,12 +137,42 @@ namespace vetappback.Controllers
 
 
 
+=======
+         public async Task<IActionResult> PostServiceType( [FromBody] ServiceType model)
+        {
+            
+
+                try
+                {
+                    if (model!=null)
+                    {
+                    await servicesTypesRepository.AddServiceTypeAsync(model);
+
+                    return Ok( model);
+                        
+                    }
+                   return BadRequest();
+
+                }
+                catch (System.Exception)
+                {
+
+                    return NoContent();
+                }
+
+        
+              
+>>>>>>> origin/main
         }
 
         [HttpPut("{id}")]
         [HttpPut("PutServiceType")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
+<<<<<<< HEAD
         public async Task<IActionResult> PutServiceType( int id,[FromBody] ServiceType model)
+=======
+        public async Task<IActionResult> PutServiceType(int id, ServiceType model)
+>>>>>>> origin/main
         {
             if (id != model.Id)
             {
@@ -122,12 +181,20 @@ namespace vetappback.Controllers
 
             try
             {
+<<<<<<< HEAD
                 await repository.UpdateServiceTypeAsync(model);
+=======
+                await servicesTypesRepository.UpdateServiceTypeAsync(model);
+>>>>>>> origin/main
                 return Ok();
             }
             catch (DbUpdateConcurrencyException)
             {
+<<<<<<< HEAD
                 if (!await repository.ServiceExists(id))
+=======
+                if (!await servicesTypesRepository.ServiceExists(id))
+>>>>>>> origin/main
                 {
                     return NotFound();
                 }
@@ -137,7 +204,11 @@ namespace vetappback.Controllers
                 }
             }
 
+<<<<<<< HEAD
             return NoContent();
+=======
+          return NoContent();
+>>>>>>> origin/main
         }
 
 

@@ -5,7 +5,11 @@ using vetappback.Entities;
 
 namespace vetappApi.Repositories
 {
+<<<<<<< HEAD
     public class HistoryRepository:IHistoryRepository
+=======
+    public class HistoryRepository
+>>>>>>> origin/main
     {
          private readonly DataContext dataContext;
 
@@ -17,9 +21,15 @@ namespace vetappApi.Repositories
 
 
        
+<<<<<<< HEAD
             public IQueryable<History> GetHistoriesAsync(int id)
         {
              return dataContext.Histories.Where(x=>x.PetId==id).AsQueryable();
+=======
+            public IQueryable<History> GetHistoriesAsync()
+        {
+             return dataContext.Histories.AsQueryable();
+>>>>>>> origin/main
           
         }
 

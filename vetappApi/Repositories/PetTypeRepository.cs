@@ -1,12 +1,19 @@
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System.Linq;
+=======
+>>>>>>> origin/main
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using vetappback.Entities;
 
 namespace vetappApi.Repositories
 {
+<<<<<<< HEAD
     public class PetTypeRepository:IPetTypeRepository
+=======
+    public class PetTypeRepository
+>>>>>>> origin/main
     {
         private readonly DataContext dataContext;
         public PetTypeRepository(DataContext dataContext)
@@ -15,6 +22,7 @@ namespace vetappApi.Repositories
         }
 
 
+<<<<<<< HEAD
       
             public IQueryable<PetType> GetPetTypesAsync()
         {
@@ -22,6 +30,14 @@ namespace vetappApi.Repositories
           
         }
 
+=======
+        public Task<List<PetType>> GetPetTypesAsync()
+        {
+            return dataContext.PetTypes.ToListAsync();
+        }
+
+
+>>>>>>> origin/main
         public Task<PetType> GetPetTypeByIdAsync(int id)
         {
             return dataContext.PetTypes

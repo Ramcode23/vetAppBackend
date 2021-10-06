@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+<<<<<<< HEAD
 using System.Linq;
+=======
+>>>>>>> origin/main
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using vetappback.Entities;
@@ -15,6 +18,7 @@ namespace veapp.Api.Repositories
         }
 
 
+<<<<<<< HEAD
      
             public IQueryable<ServiceType> GetServiceTypesAsync()
         {
@@ -24,6 +28,14 @@ namespace veapp.Api.Repositories
 
 
 
+=======
+        public Task<List<ServiceType>> GetServiceTypesAsync()
+        {
+            return dataContext.ServiceTypes.ToListAsync();
+        }
+
+
+>>>>>>> origin/main
         public Task<ServiceType> GetServiceTypeByIdAsync(int id)
         {
             return dataContext.ServiceTypes

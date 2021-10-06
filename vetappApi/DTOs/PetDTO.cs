@@ -20,10 +20,16 @@ namespace vetappback.DTOs
         public string Remarks { get; set; }
 
         public int OwnerId { get; set; }
+<<<<<<< HEAD
         public string OwnerUserFullName { get; set; }
 
         public int PetTypeId { get; set; }
        public string PetTypeName { get; set; }
+=======
+
+        public int PetTypeId { get; set; }
+
+>>>>>>> origin/main
 
     }
 }

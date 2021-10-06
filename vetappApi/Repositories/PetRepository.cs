@@ -6,6 +6,7 @@ using vetappback.Entities;
 
 namespace vetappApi.Repositories
 {
+<<<<<<< HEAD
     public class PetRepository : IPetRepository
     {
         private readonly DataContext dataContext;
@@ -20,16 +21,34 @@ namespace vetappApi.Repositories
             .Include(pt => pt.PetType)
             .Include(a => a.Owner)
            .ThenInclude(o => o.User).AsQueryable();
+=======
+    public class PetRepository
+    {
+          private readonly DataContext dataContext;
+        public PetRepository(DataContext dataContext)
+        {
+              this.dataContext = dataContext;
+        }
+        
+            public IQueryable<Pet> GetPetsAsync()
+        {
+             return dataContext.Pets.AsQueryable();
+          
+>>>>>>> origin/main
         }
 
 
         public Task<Pet> GetPetByIdAsync(int id)
         {
             return dataContext.Pets
+<<<<<<< HEAD
             .Include(pt => pt.PetType)
              .Include(a => a.Owner)
             .ThenInclude(o => o.User)
             .FirstOrDefaultAsync(x => x.Id == id);
+=======
+            .FirstOrDefaultAsync(x=>x.Id==id);
+>>>>>>> origin/main
         }
 
         public Task AddPetAsync(Pet model)
@@ -48,7 +67,11 @@ namespace vetappApi.Repositories
             return dataContext.Pets.AnyAsync(e => e.Id == id);
         }
 
+<<<<<<< HEAD
 
+=======
+     
+>>>>>>> origin/main
 
     }
 }

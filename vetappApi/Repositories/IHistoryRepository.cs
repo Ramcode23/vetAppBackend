@@ -6,7 +6,11 @@ namespace vetappApi.Repositories
 {
     public interface IHistoryRepository
     {
+<<<<<<< HEAD
         IQueryable<History> GetHistoriesAsync(int id);
+=======
+        IQueryable<History> GetHistoriesAsync();
+>>>>>>> origin/main
 
         Task<History> GetHistoryByIdAsync(int id);
 

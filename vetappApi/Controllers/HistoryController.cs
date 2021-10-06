@@ -35,9 +35,15 @@ namespace vetappback.Controllers
 
         [HttpGet("GetHistories")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+<<<<<<< HEAD
         public async Task<ActionResult<IEnumerable<HistoryDTO>>> GetHistorys(int Id,[FromQuery] PaginationsDTO pagination)
         {
             var queryable = repository.GetHistoriesAsync(Id);
+=======
+        public async Task<ActionResult<IEnumerable<HistoryDTO>>> GetHistorys([FromQuery] PaginationsDTO pagination)
+        {
+            var queryable = repository.GetHistoriesAsync();
+>>>>>>> origin/main
             await HttpContext.InsertPagintationToHeader(queryable);
             var histories = await queryable.OrderBy(x => x.Date).Paginate(pagination).ToListAsync();
 
