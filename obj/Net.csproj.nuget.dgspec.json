@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\Net.csproj": {}
+    "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\Net.csproj": {}
   },
   "projects": {
-    "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\Net.csproj": {
+    "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\Net.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\Net.csproj",
+        "projectUniqueName": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\Net.csproj",
         "projectName": "Net",
-        "projectPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\Net.csproj",
+        "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\Net.csproj",
         "packagesPath": "C:\\Users\\ramc2\\.nuget\\packages\\",
-        "outputPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\obj\\",
+        "outputPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",

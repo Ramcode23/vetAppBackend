@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/QpqQxqNSOofl85b96gQGwS+pWR9ALZL78r5AXhxhsCZQWbSKRWVaTPOHYvlPYNnZjtQ5ftq9pKiQtroU1wzZA==",
+  "dgSpecHash": "FOyN67O6JBDGnfHF7CH3m9RMJJAuZ3mrRgNybRvCL9KhWcN/8OYp9tWClh4jt9d4w83Ogrg5k+Uc79Z2y7QbEA==",
   "success": true,
-  "projectFilePath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\Net.csproj",
+  "projectFilePath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\Net.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ramc2\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ramc2\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
