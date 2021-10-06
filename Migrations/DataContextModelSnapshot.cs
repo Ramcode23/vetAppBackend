@@ -163,10 +163,10 @@ namespace Net.Migrations
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PetId")
+                    b.Property<int>("PetId")
                         .HasColumnType("int");
 
                     b.Property<string>("Remarks")
@@ -196,13 +196,13 @@ namespace Net.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("PetId")
+                    b.Property<int>("PetId")
                         .HasColumnType("int");
 
                     b.Property<string>("Remarks")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ServiceTypeId")
+                    b.Property<int>("ServiceTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -266,10 +266,10 @@ namespace Net.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PetTypeId")
+                    b.Property<int>("PetTypeId")
                         .HasColumnType("int");
 
                     b.Property<string>("Race")
@@ -461,11 +461,15 @@ namespace Net.Migrations
                 {
                     b.HasOne("vetappback.Entities.Owner", "Owner")
                         .WithMany("Agendas")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("vetappback.Entities.Pet", "Pet")
                         .WithMany()
-                        .HasForeignKey("PetId");
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
 
@@ -476,11 +480,15 @@ namespace Net.Migrations
                 {
                     b.HasOne("vetappback.Entities.Pet", "Pet")
                         .WithMany("Histories")
-                        .HasForeignKey("PetId");
+                        .HasForeignKey("PetId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("vetappback.Entities.ServiceType", "ServiceType")
                         .WithMany()
-                        .HasForeignKey("ServiceTypeId");
+                        .HasForeignKey("ServiceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Pet");
 
@@ -509,11 +517,15 @@ namespace Net.Migrations
                 {
                     b.HasOne("vetappback.Entities.Owner", "Owner")
                         .WithMany("Pets")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("vetappback.Entities.PetType", "PetType")
                         .WithMany()
-                        .HasForeignKey("PetTypeId");
+                        .HasForeignKey("PetTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Owner");
 

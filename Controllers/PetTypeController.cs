@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using vetappApi.Repositories;
+using vetappback.DTOs;
 using vetappback.Entities;
+using vetappback.Utilities;
 //using vetappback.Models;
 
 namespace vetappback.Controllers
@@ -16,19 +19,23 @@ namespace vetappback.Controllers
     [ApiController]
     public class PetTypeController : ControllerBase
     {
-        private readonly DataContext dataContext;
+        private readonly IPetTypeRepository repository;
 
-        public PetTypeController(DataContext dataContext)
+        public PetTypeController(IPetTypeRepository repository)
         {
-            this.dataContext = dataContext;
+            this.repository = repository;
+
         }
 
         [HttpGet("getPetTypes")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-        public async Task<ActionResult<IEnumerable<PetType>>> GetPetTypes()
+        public async Task<ActionResult<IEnumerable<PetType>>> GetPetTypes([FromQuery] PaginationsDTO pagination)
         {
+            var queryable =repository.GetPetTypesAsync();;
+            await HttpContext.InsertPagintationToHeader(queryable);
+            var petTypes = await queryable.OrderBy(x => x.Name).Paginate(pagination).ToListAsync();
 
-            var petTypes = await dataContext.PetTypes.ToListAsync();
+          
             if (petTypes.Count > 0)
             {
                 return petTypes;
@@ -42,13 +49,13 @@ namespace vetappback.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<PetType>> GetPetTypeById(int id)
         {
-            var petType = await dataContext.PetTypes.FindAsync(id);
+            var petType = await repository.GetPetTypeByIdAsync(id);
             if (petType != null)
             {
                 return petType;
             }
 
-            return null;
+            return NotFound();
         }
 
         [HttpPost("CreatePetType")]
@@ -58,10 +65,13 @@ namespace vetappback.Controllers
 
             try
             {
+                if (model == null)
+                {
+                    return BadRequest();
+                }
+                await repository.AddPetTypeAsync(model);
 
-                await dataContext.PetTypes.AddAsync(model);
-                await dataContext.SaveChangesAsync();
-                return model;
+                return Ok(model);
             }
             catch (System.Exception)
             {
@@ -72,7 +82,7 @@ namespace vetappback.Controllers
 
         [HttpPut("{id}")]
         [HttpPut("EditPetType")]
-         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "isAdmin")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "isAdmin")]
         public async Task<IActionResult> PutPetType(int id, PetType model)
         {
             if (id != model.Id)
@@ -80,15 +90,14 @@ namespace vetappback.Controllers
                 return BadRequest();
             }
 
-            dataContext.Entry(model).State = EntityState.Modified;
-
             try
             {
-                await dataContext.SaveChangesAsync();
+                await repository.UpdatePetTypeAsync(model);
+                return Ok();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PetTypeExists(id))
+                if (!await repository.PetTypeExists(id))
                 {
                     return NotFound();
                 }
@@ -101,10 +110,7 @@ namespace vetappback.Controllers
             return NoContent();
         }
 
-        private bool PetTypeExists(int id)
-        {
-            return dataContext.PetTypes.Any(e => e.Id == id);
-        }
+
 
     }
 

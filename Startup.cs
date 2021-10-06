@@ -21,6 +21,8 @@ using vetappback.Data;
 using vetappback.Entities;
 using vetappback.Helpers;
 using vetappback.Utilities;
+using vetappApi.Repositories;
+using veapp.Api.Repositories;
 
 namespace Net
 {
@@ -46,6 +48,11 @@ namespace Net
 
 
             services.AddScoped<IUserHelper, UserHelper>();
+            services.AddScoped<IAgendaRepository, AgendaRepository>();
+            services.AddScoped<IHistoryRepository, HistoryRepository>();
+            services.AddScoped<IPetRepository, PetRepository>();
+            services.AddScoped<IPetTypeRepository, PetTypeRepository>();
+            services.AddScoped<IServicesTypesRepository, ServicesTypesRepository>();
             services.AddTransient<IFileStorage, AzureStorage>();
 
             services.AddTransient<SeedDb>();
@@ -116,7 +123,7 @@ namespace Net
             app.UseAuthorization();
 
             app.UseAuthorization();
-         
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
