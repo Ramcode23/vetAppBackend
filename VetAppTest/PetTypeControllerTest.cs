@@ -13,7 +13,6 @@ namespace VetAppTest
         private readonly Mock<IPetTypeRepository> repositoryStub = new Mock<IPetTypeRepository>();
 
 
-
         [Fact]
         public async void GetPetTypeById_WithexitingItem_ReturnOkResult()
         {

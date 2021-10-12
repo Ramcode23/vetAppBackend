@@ -62,11 +62,11 @@ namespace vetappback.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<HistoryDTO>> GetHistoryById([FromQuery] int id)
         {
-           var history = await repository.GetHistoryByIdAsync(id);
+            var history = await repository.GetHistoryByIdAsync(id);
 
-            if (history == null)
+            if (history != null)
             {
-                return mapper.Map<HistoryDTO>(history);
+                return Ok( mapper.Map<HistoryDTO>(history));
             }
 
 
@@ -78,10 +78,14 @@ namespace vetappback.Controllers
         public async Task<ActionResult<History>> PostHistory([FromBody] HistoryCreateDTO historyCreateDTO)
         {
 
+            if (historyCreateDTO == null)
+            {
+                return BadRequest();
+            }
 
             var history = mapper.Map<History>(historyCreateDTO);
 
-            
+
             await repository.AddHistoryAsync(history);
 
             return NoContent();
@@ -92,7 +96,7 @@ namespace vetappback.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<IActionResult> PutHistory(int id, HistoryCreateDTO historyCreateDTO)
         {
-              var history = await repository.GetHistoryByIdAsync(id);
+            var history = await repository.GetHistoryByIdAsync(id);
 
             if (history == null)
             {
@@ -108,7 +112,7 @@ namespace vetappback.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (! await repository.HistoryExists(id))
+                if (!await repository.HistoryExists(id))
                 {
                     return NotFound();
                 }
@@ -121,7 +125,7 @@ namespace vetappback.Controllers
             return NoContent();
         }
 
-      
+
 
 
     }

@@ -57,9 +57,9 @@ namespace vetappback.Controllers
         {
             var agenda = await repository.GetAgendaByIdAsync(id);
 
-            if (agenda == null)
+            if (agenda != null)
             {
-                return mapper.Map<AgendaDTO>(agenda);
+                return Ok( mapper.Map<AgendaDTO>(agenda));
             }
 
             return null;
@@ -69,6 +69,10 @@ namespace vetappback.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<ActionResult<AgendaDTO>> PostAgenda([FromBody] AgendaCreateDTO agendaCrateDTO)
         {
+            if (agendaCrateDTO==null)
+            {
+                return BadRequest();
+            }
 
             var agenda = mapper.Map<Agenda>(agendaCrateDTO);
             await repository.AddAgendaAsync(agenda);
