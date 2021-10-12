@@ -9027,11 +9027,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\VetAppTest\\VetAppTest.csproj",
+      "projectUniqueName": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\VetAppTest\\VetAppTest.csproj",
       "projectName": "VetAppTest",
-      "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\VetAppTest\\VetAppTest.csproj",
+      "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\VetAppTest\\VetAppTest.csproj",
       "packagesPath": "C:\\Users\\ramc2\\.nuget\\packages\\",
-      "outputPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\VetAppTest\\obj\\",
+      "outputPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\VetAppTest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -9055,8 +9055,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\Net.csproj": {
-              "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\vetappApi\\Net.csproj"
+            "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\vetappApi\\Net.csproj": {
+              "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\vetappApi\\Net.csproj"
             }
           }
         }
@@ -9116,6 +9116,12 @@
     }
   },
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\VetAppTest\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",

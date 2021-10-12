@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PL1YwNBwsn0piAqY8tKGnPz5VJA1wxnTlXbxtDCX6sRM5Fga746fjH0cfDy+tAA1+tCL2wnvCjYGeoBAMKhybg==",
+  "dgSpecHash": "ABhJ4otIifTH7NI5XbrEd09pjoTnZ0rL0XYW16ZFibirvaHdCdLqEAHCuLaaY/Ly4vaPrVV6elXa+eY1VMX+cQ==",
   "success": true,
-  "projectFilePath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\VetAppTest\\VetAppTest.csproj",
+  "projectFilePath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\VetAppTest\\VetAppTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ramc2\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ramc2\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
@@ -177,6 +177,12 @@
     "C:\\Users\\ramc2\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.3\\xunit.runner.visualstudio.2.4.3.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\VetAppTest\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    },
     {
       "code": "NU1701",
       "level": "Warning",

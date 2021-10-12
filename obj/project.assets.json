@@ -175,6 +175,7 @@
     "version": "1.0.0",
     "restore": {
 <<<<<<< HEAD
+<<<<<<< HEAD
       "projectUniqueName": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\Net.csproj",
       "projectName": "Net",
       "projectPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\Net.csproj",
@@ -182,11 +183,18 @@
       "outputPath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\obj\\",
 =======
       "projectUniqueName": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\build.proj",
+=======
+      "projectUniqueName": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\build.proj",
+>>>>>>> 00b9e2b... Add Petcontroller test unit
       "projectName": "build",
-      "projectPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\build.proj",
+      "projectPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\build.proj",
       "packagesPath": "C:\\Users\\ramc2\\.nuget\\packages\\",
+<<<<<<< HEAD
       "outputPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\TestApp\\obj\\",
 >>>>>>> origin/main
+=======
+      "outputPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\obj\\",
+>>>>>>> 00b9e2b... Add Petcontroller test unit
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

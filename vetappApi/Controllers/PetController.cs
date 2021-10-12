@@ -60,9 +60,11 @@ namespace vetappback.Controllers
         {
             var pet = await repository.GetPetByIdAsync(id);
 
-            if (pet == null)
+            if (pet != null)
             {
-                return mapper.Map<PetDTO>(pet);
+                var petDTO = mapper.Map<PetDTO>(pet);
+                return Ok(petDTO);
+
             }
 
 
@@ -74,6 +76,10 @@ namespace vetappback.Controllers
         public async Task<ActionResult> PostPet([FromForm] PetCreateDTO petCreateDTO)
         {
 
+            if (petCreateDTO == null)
+            {
+                return BadRequest();
+            }
             var pet = mapper.Map<Pet>(petCreateDTO);
 
             if (petCreateDTO.ImageUrl != null)
@@ -83,7 +89,7 @@ namespace vetappback.Controllers
 
             await repository.AddPetAsync(pet);
 
-            return NoContent();
+            return Ok();
 
         }
 
@@ -117,6 +123,7 @@ namespace vetappback.Controllers
                     pet.ImageUrl = await fileStorage.SaveFile(container, petCreateDTO.ImageUrl);
                 }
                 await repository.UpdatePetAsync(pet);
+                return Ok();
             }
             catch (DbUpdateConcurrencyException)
             {
