@@ -4,10 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-<<<<<<< HEAD
 using vetappApi.DTOs;
-=======
->>>>>>> origin/main
 using vetappback.DTOs;
 using vetappback.Entities;
 
@@ -29,11 +26,8 @@ namespace vetappback.Utilities
             CreateMap<Agenda,AgendaDTO>();
             CreateMap<AgendaCreateDTO,Agenda>();
 
-<<<<<<< HEAD
             CreateMap<ServiceTypeCreateDTO,ServiceType>();
 
-=======
->>>>>>> origin/main
         }
     }
 }

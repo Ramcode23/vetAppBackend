@@ -6,11 +6,7 @@ using vetappback.Entities;
 
 namespace vetappApi.Repositories
 {
-<<<<<<< HEAD
     public class AgendaRepository:IAgendaRepository
-=======
-    public class AgendaRepository
->>>>>>> origin/main
     {
         private readonly DataContext dataContext;
         public AgendaRepository(DataContext dataContext)

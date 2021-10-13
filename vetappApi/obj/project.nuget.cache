@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "yrBbstCkEIkPWafHI3BzxOoGvlYNrLGuFkxVvHB8pWtKgLsdmiMd/zYW5bgqwjM4Ey7pAO3KYdw3xFJmcbYEVg==",
+  "dgSpecHash": "IF2766An/pA/Lh7e3PQ47BlICm4OAFHIsf7eVejRmsfhiwxS7W5UWmty9SPcXjEQDdcUFFDdkiItNuWtY4Zw8g==",
   "success": true,
-  "projectFilePath": "d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\vetappApi\\Net.csproj",
+  "projectFilePath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\vetappApi\\Net.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ramc2\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
     "C:\\Users\\ramc2\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
@@ -125,12 +125,6 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
   ],
   "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file d:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\vetappApi\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    },
     {
       "code": "NU1701",
       "level": "Warning",

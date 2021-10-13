@@ -96,11 +96,7 @@ namespace vetappback.Controllers
         [HttpPut("{id}")]
         [HttpPut("PutPet")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
-<<<<<<< HEAD
         public async Task<IActionResult> PutPet(int id,[FromBody] PetCreateDTO petCreateDTO)
-=======
-        public async Task<IActionResult> PutPet(int id, PetCreateDTO petCreateDTO)
->>>>>>> origin/main
         {
             if (!ModelState.IsValid)
             {

@@ -8,14 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using vetappApi.Repositories;
-<<<<<<< HEAD
 using vetappback.DTOs;
-=======
-<<<<<<<< HEAD:vetappApi/Controllers/PetTypeController.cs
-========
-using vetappback.DTOs;
->>>>>>>> origin/main:Controllers/PetTypeController.cs
->>>>>>> origin/main
 using vetappback.Entities;
 using vetappback.Utilities;
 //using vetappback.Models;
@@ -42,15 +35,7 @@ namespace vetappback.Controllers
             await HttpContext.InsertPagintationToHeader(queryable);
             var petTypes = await queryable.OrderBy(x => x.Name).Paginate(pagination).ToListAsync();
 
-<<<<<<< HEAD
-          
-=======
-<<<<<<<< HEAD:vetappApi/Controllers/PetTypeController.cs
-            var petTypes = await repository.GetPetTypesAsync();
-========
-          
->>>>>>>> origin/main:Controllers/PetTypeController.cs
->>>>>>> origin/main
+
             if (petTypes.Count > 0)
             {
                 return petTypes;
