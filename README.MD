@@ -17,7 +17,7 @@ This a application
   
 ## Screenshots
 
-![App Screenshot](https://github.com/Ramcode23/vetAppBackend/blob/main/diag/Vetapp.png)
+![App Screenshot](https://github.com/Ramcode23/vetAppBackend/blob/main/vetappApi/diag/Vetapp.png)
 
   
 
