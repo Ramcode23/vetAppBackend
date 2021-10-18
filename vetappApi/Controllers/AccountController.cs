@@ -23,22 +23,12 @@ namespace vetappback.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
-        private readonly DataContext dataContext;
+       
         private readonly IUserHelper userHelper;
-        private readonly IConfiguration configuration;
 
-        public AccountController(UserManager<User> userManager,
-         IConfiguration configuration,
-         SignInManager<User> signInManager,
-         DataContext dataContext,
-         IUserHelper userHelper)
+        public AccountController(IUserHelper userHelper)
         {
-            this.configuration = configuration;
-            this.userManager = userManager;
-            this.signInManager = signInManager;
-            this.dataContext = dataContext;
+    
             this.userHelper = userHelper;
         }
 
@@ -46,7 +36,7 @@ namespace vetappback.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<ActionResult<IEnumerable<Owner>>> GetUsers()
         {
-            var owners = await dataContext.Owners.Include(u => u.User).ToListAsync();
+            var owners = await userHelper.GetUsersAsync();
             if (owners.Count > 1)
             {
                 return owners;
@@ -60,7 +50,7 @@ namespace vetappback.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<ActionResult<Owner>> GetUserById(int id)
         {
-            var owner = await dataContext.Owners.Include(u => u.User).FirstOrDefaultAsync(o => o.Id == id);
+            var owner = await userHelper.GetUserByIdAsync(id);
             if (owner != null)
             {
                 return owner;
@@ -73,10 +63,7 @@ namespace vetappback.Controllers
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<Owner>> GetProfile()
         {
-            var owner = await dataContext.Owners
-            .Include(u => u.User)
-            .FirstOrDefaultAsync(o => 
-            o.User.Email == userHelper.GetAuthenticaedUserName(User));
+            var owner =await userHelper.GetProfileAsync(User);
             if (owner != null)
             {
                 return owner;
@@ -91,30 +78,14 @@ namespace vetappback.Controllers
         public async Task<ActionResult<AuthenticationResponse>> createAdmin([FromBody] RegisterUser registeruser)
         {
 
-             var isExits = await userManager.FindByEmailAsync(registeruser.Email);
+             var isExits = await userHelper.GetUserByEmailAsync( registeruser.Email);
             if (isExits == null)
             {
-
-                var user = new User
-                {
-                    UserName = registeruser.Email,
-                    Email = registeruser.Email,
-                    Document = registeruser.Document,
-                    FirstName = registeruser.FirstName,
-                    LastName = registeruser.LastName,
-                    Address = registeruser.Address,
-                };
-                
-
-                var credencials = new UserCredentials { Password = registeruser.Password, Email = registeruser.Email };
-                var rest = await userManager.CreateAsync(user, registeruser.Password);
-                var manager = new Manager { User = user };
-                await dataContext.AddAsync(manager);
-                await dataContext.SaveChangesAsync();
-                await userManager.AddClaimAsync(user, new Claim("role", "admin"));
+                var rest = await userHelper.CreateAdminAsync(registeruser);
+                 var credencials = new UserCredentials { Password = registeruser.Password, Email = registeruser.Email };
                 if (rest.Succeeded)
                 {
-                    return await BuildToken(credencials);
+                    return await userHelper.BuildTokenAsync(credencials);
                 }
                 else
                 {
@@ -129,28 +100,15 @@ namespace vetappback.Controllers
   
         public async Task<ActionResult<AuthenticationResponse>> PostOwner([FromBody] RegisterUser registeruser)
         {
-            var isExits = await userManager.FindByEmailAsync(registeruser.Email);
+              var isExits = await userHelper.GetUserByEmailAsync( registeruser.Email);
             if (isExits == null)
             {
 
-                var user = new User
-                {
-                    UserName = registeruser.Email,
-                    Email = registeruser.Email,
-                    Document = registeruser.Document,
-                    FirstName = registeruser.FirstName,
-                    LastName = registeruser.LastName,
-                    Address = registeruser.Address,
-                };
-
                 var credencials = new UserCredentials { Password = registeruser.Password, Email = registeruser.Email };
-                var rest = await userManager.CreateAsync(user, registeruser.Password);
-                var owner = new Owner { User = user };
-                await dataContext.AddAsync(owner);
-                await dataContext.SaveChangesAsync();
+                var rest = await userHelper.CreateoOwnerAsync(registeruser);
                 if (rest.Succeeded)
                 {
-                    return await BuildToken(credencials);
+                    return await userHelper.BuildTokenAsync(credencials);
                 }
                 else
                 {
@@ -165,22 +123,20 @@ namespace vetappback.Controllers
         [HttpPut("{id}")]
         [HttpPost("EditUser")]
         [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
-        public async Task<IActionResult> PutUser(string id, User model)
+        public async Task<IActionResult> PutUser(string id, User user)
         {
-            if (id != model.Id)
+            if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            dataContext.Entry(User).State = EntityState.Modified;
-
             try
             {
-                await dataContext.SaveChangesAsync();
+                await userHelper.UpdateUserAsync(user);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(id))
+                if (!userHelper.UserExists(id))
                 {
                     return NotFound();
                 }
@@ -197,11 +153,11 @@ namespace vetappback.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<AuthenticationResponse>> loging([FromBody] UserCredentials credentials)
         {
-            var resp = await signInManager.PasswordSignInAsync(credentials.Email, credentials.Password, isPersistent: false, lockoutOnFailure: false);
+            var resp = await userHelper.PasswordSignInAsync(credentials);
 
             if (resp.Succeeded)
             {
-                return await BuildToken(credentials);
+                return await userHelper.BuildTokenAsync(credentials);
             }
             else
             {
@@ -210,34 +166,8 @@ namespace vetappback.Controllers
         }
 
 
-        private async Task<AuthenticationResponse> BuildToken(UserCredentials credentials)
-        {
-            var claims = new List<Claim>()
-            {
-                new Claim("email",credentials.Email)
-            };
 
-            var user = await userManager.FindByEmailAsync(credentials.Email);
-            var claimBD = await userManager.GetClaimsAsync(user);
-            claims.AddRange(claimBD);
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            var expiration = DateTime.UtcNow.AddYears(1);
-            var token = new JwtSecurityToken(issuer: null, audience: null, claims: claims,
-                expires: expiration, signingCredentials: creds);
 
-            return new AuthenticationResponse()
-            {
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
-                Expiration = expiration
-            };
-
-        }
-
-        private bool UserExists(string id)
-        {
-            return dataContext.Users.Any(e => e.Id == id);
-        }
 
 
     }
