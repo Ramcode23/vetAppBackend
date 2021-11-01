@@ -28,6 +28,9 @@ namespace vetappback.Utilities
 
             CreateMap<ServiceTypeCreateDTO,ServiceType>();
 
+             CreateMap<Owner,OwnerResponse>().ReverseMap();
+            CreateMap<Owner,OwnerResponse>();
+
         }
     }
 }

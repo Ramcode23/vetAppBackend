@@ -97,13 +97,13 @@ namespace vetappback.Helpers
             return dataContext.Owners.Include(u => u.User).FirstOrDefaultAsync(o => o.Id == id);
 
         }
-        public Task<Owner> GetProfileAsync(ClaimsPrincipal User)
+        public Task<Owner> GetProfileAsync(string userName)
         {
 
             return dataContext.Owners
             .Include(u => u.User)
             .FirstOrDefaultAsync(o =>
-            o.User.Email == GetAuthenticaedUserName(User));
+            o.User.Email == userName);
 
         }
 

@@ -53,7 +53,7 @@ namespace Net
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetTypeRepository, PetTypeRepository>();
             services.AddScoped<IServicesTypesRepository, ServicesTypesRepository>();
-            services.AddTransient<IFileStorage, AzureStorage>();
+            services.AddTransient<IFileStorage, FileStaticLocalStorage>();
 
             services.AddTransient<SeedDb>();
 

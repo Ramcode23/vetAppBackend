@@ -11,7 +11,7 @@ namespace vetappback.DTOs
         public string Name { get; set; }
 
 
-        public IFormFile ImageUrl { get; set; }
+        public String ImageUrl { get; set; }
 
         public string Race { get; set; }
 

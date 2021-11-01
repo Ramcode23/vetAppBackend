@@ -13,7 +13,7 @@ namespace vetappback.Helpers
         string GetAuthenticaedUserName(ClaimsPrincipal User);
          Task<List<Owner>> GetUsersAsync();
         Task<Owner> GetUserByIdAsync(int id);
-        Task<Owner> GetProfileAsync(ClaimsPrincipal User);
+        Task<Owner> GetProfileAsync(string userName);
         Task<User> GetUserByEmailAsync(string email);
         Task<IdentityResult> CreateAdminAsync(RegisterUser registeruser);
         Task<IdentityResult> CreateoOwnerAsync(RegisterUser registeruser);
