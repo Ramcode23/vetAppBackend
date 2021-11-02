@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using vetappApi.DTOs;
 using vetappback.DTOs;
 using vetappback.Entities;
 using vetappback.Helpers;
@@ -29,8 +30,7 @@ namespace vetappback.Controllers
         private readonly IMapper mapper;
 
         public AccountController(IUserHelper userHelper,
-         IMapper mapper
-        )
+                                 IMapper mapper)
         {
 
             this.userHelper = userHelper;
@@ -172,8 +172,41 @@ namespace vetappback.Controllers
         }
 
 
+        [HttpPost("resetPassword")]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
+        public async Task<ActionResult<AuthenticationResponse>> resetPassword([FromBody] ResetPasswordRequest request)
+        {
+            var user = await userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+
+            var result = await userHelper.ResetPasswordAsync(user, request.Token, request.Password);
+            if (result.Succeeded)
+            {
+                return await userHelper.BuildTokenAsync(new UserCredentials { Email = user.Email, Password = request.Password });
+            }
+            else
+            {
+                return BadRequest(result.Errors);
+            }
+        }
+
+        [HttpPost("recoverPassword")]
+           [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
+        public async Task<ActionResult<string>> recoverPassword([FromBody] RecoverPassword request)
+        {
+            var user = await userHelper.GetUserByEmailAsync(request.Email);
+            if (user == null)
+            {
+                return BadRequest("User not found");
+            }
+            var token = await userHelper.GeneratePasswordResetTokenAsync(user);
+            return token;
 
 
+        }
 
 
     }
