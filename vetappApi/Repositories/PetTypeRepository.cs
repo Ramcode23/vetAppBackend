@@ -43,6 +43,10 @@ namespace vetappApi.Repositories
         {
             return dataContext.PetTypes.AnyAsync(e => e.Id == id);
         }
+        public Task<bool> AnyPetTypeExists()
+        {
+            return dataContext.PetTypes.AnyAsync();
+        }
 
      
 

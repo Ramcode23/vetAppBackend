@@ -12,5 +12,6 @@ namespace vetappApi.Repositories
         Task AddPetTypeAsync(PetType model);
         Task UpdatePetTypeAsync(PetType model);
         Task<bool> PetTypeExists(int id);
+        Task<bool> AnyPetTypeExists();
     }
 }

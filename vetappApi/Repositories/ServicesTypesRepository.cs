@@ -45,6 +45,10 @@ namespace veapp.Api.Repositories
         {
             return dataContext.ServiceTypes.AnyAsync(e => e.Id == id);
         }
+        public Task<bool> AnyServiceExists()
+        {
+            return dataContext.ServiceTypes.AnyAsync();
+        }
 
      
 

@@ -12,5 +12,6 @@ namespace veapp.Api.Repositories
         Task AddServiceTypeAsync(ServiceType model);
         Task UpdateServiceTypeAsync(ServiceType model);
         Task <bool> ServiceExists(int id);
+        Task<bool> AnyServiceExists();
     }
 }

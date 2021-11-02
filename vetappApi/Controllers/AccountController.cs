@@ -80,7 +80,7 @@ namespace vetappback.Controllers
 
 
         [HttpPost("createmanager")]
-
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsAdmin")]
         public async Task<ActionResult<AuthenticationResponse>> createAdmin([FromBody] RegisterUser registeruser)
         {
 

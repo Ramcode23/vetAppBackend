@@ -195,5 +195,9 @@ namespace vetappback.Helpers
         {
             return dataContext.Users.Any(e => e.Id == id);
         }
+        public  Task<bool> AdminUserExists()
+        {
+            return dataContext.Managers.AnyAsync();
+        }
     }
 }

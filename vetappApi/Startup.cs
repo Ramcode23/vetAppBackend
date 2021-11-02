@@ -54,8 +54,8 @@ namespace Net
             services.AddScoped<IPetTypeRepository, PetTypeRepository>();
             services.AddScoped<IServicesTypesRepository, ServicesTypesRepository>();
             services.AddTransient<IFileStorage, FileStaticLocalStorage>();
-
             services.AddTransient<SeedDb>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
