@@ -15,7 +15,6 @@ namespace vetappback.Entities
 
         public int OwnerId { get; set; }
         public Owner Owner { get; set; }
-        public int PetId { get; set; }
         public Pet Pet { get; set; }
 
         public string Remarks { get; set; }

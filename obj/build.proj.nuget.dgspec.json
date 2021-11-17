@@ -1,33 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\build.proj": {}
+    "C:\\Users\\ramc2\\OneDrive\\Documents\\Projects\\vetAppBackend\\build.proj": {}
   },
   "projects": {
-    "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\build.proj": {
+    "C:\\Users\\ramc2\\OneDrive\\Documents\\Projects\\vetAppBackend\\build.proj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\build.proj",
+        "projectUniqueName": "C:\\Users\\ramc2\\OneDrive\\Documents\\Projects\\vetAppBackend\\build.proj",
         "projectName": "build",
-        "projectPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\build.proj",
+        "projectPath": "C:\\Users\\ramc2\\OneDrive\\Documents\\Projects\\vetAppBackend\\build.proj",
         "packagesPath": "C:\\Users\\ramc2\\.nuget\\packages\\",
-        "outputPath": "D:\\Cursoonline\\Cursos\\Potafolio\\Net\\vetappback\\obj\\",
+        "outputPath": "C:\\Users\\ramc2\\OneDrive\\Documents\\Projects\\vetAppBackend\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
           "C:\\Users\\ramc2\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net45"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
@@ -42,12 +35,18 @@
         "net45": {
           "targetAlias": "net45",
           "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.2, )",
+              "autoReferenced": true
+            },
             "moq": {
               "target": "Package",
               "version": "[4.16.1, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

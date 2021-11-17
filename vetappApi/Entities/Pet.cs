@@ -34,6 +34,7 @@ namespace vetappback.Entities
         public string Remarks { get; set; }
 
         public ICollection<History> Histories { get; set; }
+      
 
         //TODO: replace the correct URL for the image
         public string ImageFullPath => string.IsNullOrEmpty(ImageUrl)
